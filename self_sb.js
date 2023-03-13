@@ -3,7 +3,7 @@
 logToConsole();
 
 var COMPONENTS = new Map([ 
-    ['Add Number', {"c":"num","id":"X","v":[{v:0, "id": "ident", input:1},{"c":"btn", "id": "Add"}]}],
+    ['Add Number', {"c":"num","id":"Number","v":[{v:0, "id": "input", input:1},{"c":"btn", "id": "Add"}]}],
     // ['Add "if" Condition', {"c":"btn", "v": []}]
 ]);
 
@@ -40,7 +40,7 @@ function userEvent(event){
             dUpdates.push({U:'Your space',v:null},{add:[preview]});
         }
         if(itemid==='Add'){
-            dUpdates.push({U:'Your space', add:[{"c":"txt","v":"number = " + itemval }]});
+            dUpdates.push({U:'Your space', add:[{"c":"txt","v":"number = " + itemval}]});
         }
         app.display({Q:dUpdates});
     }
