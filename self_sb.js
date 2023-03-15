@@ -13,7 +13,8 @@ var COMPONENTS = new Map([
 ]);
 
 var latestcode = '{"v":[\n  \n]}\n';
-// var latestNumericInput = 0;
+var latestNumericInput = 0;
+var latestName = "";
 
 function userEvent(event) {
   if (event.t == 0) {
@@ -27,7 +28,8 @@ function userEvent(event) {
         {
           id: "Items to Add",
           v: [...COMPONENTS.keys()].map((x) => ({ id: x, c: "btn" })),
-        },{ id: "UINL Code" }
+        },{ id: "JavaScript Code"},
+        // {id:"Save", cap:"Save the JavaScript File", class:"btn"}
       ],
     });
   } else {
@@ -36,30 +38,35 @@ function userEvent(event) {
     var itemval = event.v;
     var dUpdates = [{ U: "Warning", v: null }];
 
-    if (COMPONENTS.has(itemid)) {
+    // if(itemid==='Save'){ // if user clicks Save
+    //       dUpdates.push({save:['javascript.js','JavaScript Code']});
+    // }else
+       if (COMPONENTS.has(itemid)) {
       let preview = JSON.parse(latestcode); // parse the JSON
       //check if there is already code, if not create empty
-      if (!preview.v || preview.v.constructor !== Array) preview.v = [];
+      // if (!preview.v || preview.v.constructor !== Array) 
+        preview.v = [];
 
       preview.v.push(COMPONENTS.get(itemid));
-      latestcode = JSON.stringify(preview, null, 2);
-      // displayUpdates.push({U:'UINLcode',v:lastValidUINLcode});
       preview.id = "Your space";
       preview.i = 0;
       // uinl.df={on:{pc:[]}};
       dUpdates.push({ U: "Your space", v: null }, { add: [preview] });
     }
-    if (itemid === "Add a Variable") {
-      latestNumericInput = itemval;
+      if (itemid === "Name") {
+        latestName = itemval;
+      }
+      if (itemid === "Value") {
+        latestNumericInput = itemval;
+      }
+
+    if (itemid === "Add") {
+      dUpdates.push({
+        U: "JavaScript Code",
+        add: [{ c: "txt", v: "let " + latestName + " = " + latestNumericInput + ";" }],
+      });
+      // dUpdates.push({ U: "Your space", v: null});
     }
-
-
-    // if (itemid === "Add") {
-    //   dUpdates.push({
-    //     U: "Your space",
-    //     add: [{ c: "txt", v: "number = " + latestNumericInput }],
-    //   });
-    // }
   }
   app.display({ Q: dUpdates });
 }

@@ -3,18 +3,18 @@
     height:100%;
     display:grid;
     grid-template-areas: "lt rt" "lb rb";
-    grid-auto-rows: 3fr 1fr;
+    grid-auto-rows: 1fr 1fr;
     grid-template-columns: 2.5fr 1.5fr;
 }
 
 [id = "Your Space"] {background:linear-gradient(to bottom left,white 75%,#dee 85%,#9aa);box-shadow:-1px -1px 1px lightgray;padding:5px;grid-area:lt}
 
-[id="UINL Code"] {grid-area:lb;display:flex;flex-direction:row}
-[id="UINL Code"]>.title {flex: 0 1 auto;}
-[id="UINL Code"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:11pt}
-[id="UINL Code"]>.frame>.content {height:100%;display:flex;flex-direction: column;}
-[id="UINL Code"] {flex: 1 1 auto;}
-[id="UINL Code"]>.content {height:100% !important} */
+[id="JavaScript Code"] {grid-area:lb;display:flex;flex-direction:row}
+[id="JavaScript Code"]>.title {flex: 0 1 auto;}
+[id="JavaScript Code"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:11pt}
+[id="JavaScript Code"]>.frame>.content {height:100%;display:flex;flex-direction: column;}
+[id="JavaScript Code"] {flex: 1 1 auto;}
+[id="JavaScript Code"]>.content {height:100% !important} */
 
 [id="Items to Add"] {grid-area:rt;display:flex;flex-direction:row}
 [id="Items to Add"]>.title {flex: 0 1 auto;}
@@ -23,9 +23,12 @@
 [id="Items to Add"] {flex: 1 1 auto;}
 [id="Items to Add"]>.content {height:100% !important} */
 
-
-
-/* [id="Clean Up"] {grid-area:br} */
+/* [id="Save"] {grid-area:rb;display:flex;flex-direction:row}
+[id="Save"]>.title {flex: 0 1 auto;}
+[id="Save"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:11pt}
+[id="Save"]>.frame>.content {height:100%;display:flex;flex-direction: column;}
+[id="Save"] {flex: 1 1 auto;}
+[id="Save"]>.content {height:100% !important} */ */
 
 #Warning {text-align:right;color:#a00}
 #Warning * {display:inline}
