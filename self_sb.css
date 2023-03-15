@@ -2,21 +2,21 @@
     width:100%;
     height:100%;
     display:grid;
-    grid-template-areas: "lt rt";
-    grid-auto-rows: auto min-content;
-    grid-template-columns: 3fr 1fr;
+    grid-template-areas: "lt rt" "lb rb";
+    grid-auto-rows: 3fr 1fr;
+    grid-template-columns: 2.5fr 1.5fr;
 }
 
 [id = "Your Space"] {background:linear-gradient(to bottom left,white 75%,#dee 85%,#9aa);box-shadow:-1px -1px 1px lightgray;padding:5px;grid-area:lt}
 
-/* #UINL {grid-area:rt;display:flex;flex-direction:column}
-#UINL>.title {flex: 0 1 auto;}
-#UINL>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:11pt}
-#UINL>.frame>.content {height:100%;display:flex;flex-direction: column;}
-#UINLcode {flex: 1 1 auto;}
-#UINLcode>.content {height:100% !important} */
+[id="UINL Code"] {grid-area:lb;display:flex;flex-direction:row}
+[id="UINL Code"]>.title {flex: 0 1 auto;}
+[id="UINL Code"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:11pt}
+[id="UINL Code"]>.frame>.content {height:100%;display:flex;flex-direction: column;}
+[id="UINL Code"] {flex: 1 1 auto;}
+[id="UINL Code"]>.content {height:100% !important} */
 
-[id="Items to Add"] {grid-area:rt;display:flex;flex-direction:column}
+[id="Items to Add"] {grid-area:rt;display:flex;flex-direction:row}
 [id="Items to Add"]>.title {flex: 0 1 auto;}
 [id="Items to Add"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:11pt}
 [id="Items to Add"]>.frame>.content {height:100%;display:flex;flex-direction: column;}

@@ -3,23 +3,17 @@
 logToConsole();
 
 var COMPONENTS = new Map([
-  [
-    "Add Number",
-    {
-      c: "num",
-      id: "Number",
-      v: [
-        { v: 0, id: "input", input: 1 },
-        { c: "btn", id: "Add" },
-      ],
-    },
-  ],
+  ["Add Variable", {c: "txt", id: "Add a Variable", v: [{id:"Variable Type?",
+     defaults:{class:"opt",optionGroup:"vartype"},
+     v:[{id:"Text"},{id:"Num"}]}
+   ,{ v: " ", id: "Name", input: 1 },{ v: " ", id: "Value", input: 1 },{ c: "btn", id: "Add" }]}],
+  // ["Add Number", {c: "num", id: "Number", v: [{ v: " ", id: "numinpt", input: 1 },{ c: "btn", id: "addnum" }],}],
+  // ["Add Text", {c: "txt", id: "Text", v: [{ v: " ", id: "txtinpt", input: 1 },{ c: "btn", id: "addtxt" }],}],
   // ['Add "if" Condition', {"c":"btn", "v": []}]
 ]);
 
 var latestcode = '{"v":[\n  \n]}\n';
-var newcode = '{"v":[\n  \n]}\n';
-var latestNumericInput = 0;
+// var latestNumericInput = 0;
 
 function userEvent(event) {
   if (event.t == 0) {
@@ -33,7 +27,7 @@ function userEvent(event) {
         {
           id: "Items to Add",
           v: [...COMPONENTS.keys()].map((x) => ({ id: x, c: "btn" })),
-        },
+        },{ id: "UINL Code" }
       ],
     });
   } else {
@@ -51,19 +45,21 @@ function userEvent(event) {
       latestcode = JSON.stringify(preview, null, 2);
       // displayUpdates.push({U:'UINLcode',v:lastValidUINLcode});
       preview.id = "Your space";
-      preview.i = 1;
+      preview.i = 0;
       // uinl.df={on:{pc:[]}};
       dUpdates.push({ U: "Your space", v: null }, { add: [preview] });
     }
-    if (itemid === "input") {
+    if (itemid === "Add a Variable") {
       latestNumericInput = itemval;
     }
-    if (itemid === "Add") {
-      dUpdates.push({
-        U: "Your space",
-        add: [{ c: "txt", v: "number = " + latestNumericInput }],
-      });
-    }
+
+
+    // if (itemid === "Add") {
+    //   dUpdates.push({
+    //     U: "Your space",
+    //     add: [{ c: "txt", v: "number = " + latestNumericInput }],
+    //   });
+    // }
   }
   app.display({ Q: dUpdates });
 }
