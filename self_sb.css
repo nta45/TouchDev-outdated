@@ -7,28 +7,22 @@
     grid-template-columns: 2.5fr 1.5fr;
 }
 
-[id = "Your Space"] {background:linear-gradient(to bottom left,white 75%,#dee 85%,#9aa);box-shadow:-1px -1px 1px lightgray;padding:5px;grid-area:lt}
+[id = "Your space"] {background:linear-gradient(to bottom right,white 75%,rgb(240, 255, 255) 85%,rgb(219, 236, 250));box-shadow:-1px -1px 1px lightgray;padding:5px;grid-area:lt}
 
 [id="JavaScript Code"] {grid-area:lb;display:flex;flex-direction:row}
+[id="JavaScript Code"] {background:linear-gradient(to top right,white 75%,rgb(231, 245, 245) 85%,rgb(220, 239, 255));box-shadow:-1px -1px 1px lightgray;padding:5px}
 [id="JavaScript Code"]>.title {flex: 0 1 auto;}
-[id="JavaScript Code"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:11pt}
+[id="JavaScript Code"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:20pt}
 [id="JavaScript Code"]>.frame>.content {height:100%;display:flex;flex-direction: column;}
 [id="JavaScript Code"] {flex: 1 1 auto;}
 [id="JavaScript Code"]>.content {height:100% !important} */
 
-[id="Items to Add"] {grid-area:rt;display:flex;flex-direction:row}
-[id="Items to Add"]>.title {flex: 0 1 auto;}
-[id="Items to Add"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:11pt}
-[id="Items to Add"]>.frame>.content {height:100%;display:flex;flex-direction: column;}
-[id="Items to Add"] {flex: 1 1 auto;}
-[id="Items to Add"]>.content {height:100% !important} */
-
-/* [id="Save"] {grid-area:rb;display:flex;flex-direction:row}
-[id="Save"]>.title {flex: 0 1 auto;}
-[id="Save"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:11pt}
-[id="Save"]>.frame>.content {height:100%;display:flex;flex-direction: column;}
-[id="Save"] {flex: 1 1 auto;}
-[id="Save"]>.content {height:100% !important} */ */
+[id="Things to Do"] {grid-area:rt;display:flex;flex-direction:row}
+[id="Things to Do"]>.title {flex: 0 1 auto;}
+[id="Things to Do"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:11pt}
+[id="Things to Do"]>.frame>.content {height:100%;display:flex;flex-direction: column;}
+[id="Things to Do"] {flex: 1 1 auto;}
+[id="Things to Do"]>.content {height:100% !important} */
 
 #Warning {text-align:right;color:#a00}
 #Warning * {display:inline}
