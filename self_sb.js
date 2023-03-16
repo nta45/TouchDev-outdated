@@ -48,7 +48,7 @@ function userEvent(event) {
     else if (itemid === "inpt2") { inpt2 = itemval;}
     else if (itemid === "inpt3") { inpt3 = itemval;}
     else if (itemid === "inpt4") { inpt4 = itemval;}
-    else if (itemid === "inpt5") { if (Number.isFinite(inpt5)) inpt5 = itemval; else{inpt5 = 0}}
+    else if (itemid === "inpt5") { if (Number.isFinite(inpt5)) inpt5 = itemval; else{dUpdates.push({U:'Your space',add:[{id:'Warning',v:'Please enter a valid number.'}]});inpt5 = 0}}
     else if (itemid === "add3") { // if save button clicked
       dUpdates.push({save:['javascript.js',jscode]});
     }
