@@ -3,17 +3,17 @@
 logToConsole();
 
 let COMPONENTS = new Map([
-  ["Add a Text Variable", {c: "txt", id: "Add a Variable", 
+  ["Add a Text Variable", {c: "bin", id: "Add a Variable", 
                     v: [{ v: " ", id: "inpt1", cap:"Name", input: 1 },{ v: " ", id: "inpt2", cap:"Value", input: 1 },
                         { c: "btn", id: "add1", cap:"Add" }]}],
-  ["Add a Number Variable", {c: "txt", id: "Add a Variable", 
+  ["Add a Number Variable", {c: "bin", id: "Add a Variable", 
                     v: [{ v: " ", id: "inpt4", cap:"Name", input: 1 },{ v: " ", id: "inpt5", cap:"Value", input: 1 },
                         { c: "btn", id: "add4", cap:"Add" }]}],
-  ["Add Text to Display", {c: "txt", id: "Add Text to Display", 
+  ["Add Text to Display", {c: "bin", id: "Add Text to Display", 
                     v: [{ v: " ", id: "inpt3", cap:"Text to Display ↓", input: 1 }, 
                     "If you want to print a variable you've already set, type the name of the variable",
                         { c: "btn", id:"add2", cap: "Add" }]}],
-  ["Save JavaScript File", {c: "txt", id: "Download the JavaScript File?", 
+  ["Save JavaScript File", {c: "bin", id: "Download the JavaScript File?", 
                     v:["Are you sure you want to download the JavaScript file?",
                         { c: "btn", id: "add3", cap:"Yes"}]}]
 ]);
