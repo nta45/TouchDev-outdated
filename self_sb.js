@@ -4,10 +4,10 @@ logToConsole();
 
 let COMPONENTS = new Map([
   ["Add a Text Variable", {c: "bin", id: "Add a Variable", 
-                    v: [{ v: " ", id: "inpt_addtxt_name", cap:"Name", input: 1 },{ v: " ", id: "inpt_addtxt_value", cap:"Value", input: 1 },
+                    v: [{ v: " ", id: "inpt_addtxt_name", cap:"Name", input: 1 },{ v: "", id: "inpt_addtxt_value", cap:"Value", input: 1 },
                         { c: "btn", id: "btn_addtextvar", cap:"Add" }]}],
   ["Add a Number Variable", {c: "bin", id: "Add a Variable", 
-                    v: [{ v: " ", id: "inpt_addnum_name", cap:"Name", input: 1 },{ v: " ", id: "inpt_addnum_value", cap:"Value", input: 1 },
+                    v: [{ v: " ", id: "inpt_addnum_name", cap:"Name", input: 1 },{ v: "", id: "inpt_addnum_value", cap:"Value", input: 1 },
                         { c: "btn", id: "btn_addnumvar", cap:"Add" }]}],
   ["Add Text to Display", {c: "bin", id: "Add Text to Display", 
                     v: [{ v: " ", id: "inpt_print_value", cap:"Text to Display ↓", input: 1 }, 
@@ -133,3 +133,6 @@ function userEvent(event) {
   }
   
 }
+//work to do:
+  // 1. printing a variable or input message option (maybe with a context menu option)
+  // 2. 
