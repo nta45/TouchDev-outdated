@@ -13,9 +13,12 @@ let COMPONENTS = new Map([
                     v: [{ v: " ", id: "inpt_print_value", cap:"Text to Display ↓", input: 1 }, 
                     "If you want to print a variable you've already set, type the name of the variable",
                         { c: "btn", id:"btn_println", cap: "Print" }]}],
-  ["Save JavaScript File", {c: "bin", id: "Download the JavaScript File?", 
+  ["Save JavaScript File", {c: "win", modal:1,id: "Download the JavaScript File?", 
                     v:["Are you sure you want to download the JavaScript file?",
-                        { c: "btn", id: "btn_savejsfile", cap:"Yes"}]}]
+                        { c: "btn", id: "btn_savejsfile", cap:"Yes"}]}],
+  ["Load JavaScript File", {c: "win", modal:1, id: "Load the JavaScript File?", 
+                    v:["Select the JavaScript file you want to lead?", {c: "txt", id: "txt_loadjsfile", cap:"File to Load:", input: 1},
+                        { c: "btn", id: "btn_loadejsfile", cap:"Yes"}]}]
 ]);
 
 let latestcode = '{"v":[\n  \n]}\n';
