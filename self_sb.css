@@ -2,20 +2,23 @@
     width:100%;
     height:100%;
     display:grid;
-    grid-template-areas: "lt rt" "lb rb";
+    grid-template-areas: "lt rt" "lm rm" "lb rb";
     grid-auto-rows: 1fr 1fr;
     grid-template-columns: 2.5fr 1.5fr;
 }
 
-[id = "Your space"] {background:linear-gradient(to bottom right,white 75%,rgb(240, 255, 255) 85%,rgb(219, 236, 250));box-shadow:-1px -1px 1px lightgray;padding:5px;grid-area:lt}
 
-[id="JavaScript Code"] {grid-area:lb;display:flex;flex-direction:row}
-[id="JavaScript Code"] {background:linear-gradient(to top right,white 75%,rgb(231, 245, 245) 85%,rgb(220, 239, 255));box-shadow:-1px -1px 1px lightgray;padding:5px}
-[id="JavaScript Code"]>.title {flex: 0 1 auto;}
-[id="JavaScript Code"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:20pt}
-[id="JavaScript Code"]>.frame>.content {height:100%;display:flex;flex-direction: column;}
-[id="JavaScript Code"] {flex: 1 1 auto;}
-[id="JavaScript Code"]>.content {height:100% !important} */
+[id = "Your space"] {background:linear-gradient(to bottom right,white 75%,rgb(240, 255, 255) 85%,rgb(219, 236, 250));
+    box-shadow:-1px -1px 1px lightgray;padding:5px;grid-area:lt / lm / lb}
+
+
+[id="Edit space"] {grid-area:rm / rb;display:flex;flex-direction:row}
+[id="Edit space"] {background:linear-gradient(to top right,white 75%,rgb(231, 245, 245) 85%,rgb(220, 239, 255));box-shadow:-1px -1px 1px lightgray;padding:5px}
+[id="Edit space"]>.title {flex: 0 1 auto;}
+[id="Edit space"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font: size 12pt;}
+[id="Edit space"]>.frame>.content {height:100%;display:flex;flex-direction: column;}
+[id="Edit space"] {flex: 1 1 auto;}
+[id="Edit space"]>.content {height:100% !important} */
 
 [id="Things to Do"] {grid-area:rt;display:flex;flex-direction:row}
 [id="Things to Do"]>.title {flex: 0 1 auto;}
