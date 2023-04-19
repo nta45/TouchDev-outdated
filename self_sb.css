@@ -1,4 +1,4 @@
-[level="0"]>.frame>.content {
+[level="0"]>.frame {
     width:100%;
     height:100%;
     display:grid;
@@ -16,16 +16,16 @@
 [id="Edit space"] {background:linear-gradient(to top right,white 75%,rgb(231, 245, 245) 85%,rgb(220, 239, 255));box-shadow:-1px -1px 1px lightgray;padding:5px}
 [id="Edit space"]>.title {flex: 0 1 auto;}
 [id="Edit space"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font: size 12pt;}
-[id="Edit space"]>.frame>.content {height:100%;display:flex;flex-direction: column;}
+[id="Edit space"]>.frame {height:100%;display:flex;flex-direction: column;}
 [id="Edit space"] {flex: 1 1 auto;}
-[id="Edit space"]>.content {height:100% !important} */
+[id="Edit space"]{height:100% !important} */
 
 [id="Things to Do"] {grid-area:rt;display:flex;flex-direction:row}
 [id="Things to Do"]>.title {flex: 0 1 auto;}
 [id="Things to Do"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:11pt}
-[id="Things to Do"]>.frame>.content {height:100%;display:flex;flex-direction: column;}
+[id="Things to Do"]>.frame {height:100%;display:flex;flex-direction: column;}
 [id="Things to Do"] {flex: 1 1 auto;}
-[id="Things to Do"]>.content {height:100% !important} */
+[id="Things to Do"] {height:100% !important} */
 
 #Warning {text-align:right;color:#a00}
 #Warning * {display:inline}

@@ -3,27 +3,27 @@
 logToConsole();
 
 let COMPONENTS = new Map([
-  ["Add a Text Variable", {c: "win", closeable: 1, id: "Add a Variable", 
+  ["Add a Text Variable", {c: "win", closeable: 1, modal:1, id: "Add a Variable", 
                     v: [{ v: " ", id: "inpt_addtxt_name", cap:"Name", input: 1 },{ v: "", id: "inpt_addtxt_value", cap:"Value", input: 1 },
                         { c: "btn", id: "btn_addtextvar", cap:"Add" }]}],
-  ["Add a Number Variable", {c: "win", closeable: 1, id: "Add a Variable", 
+  ["Add a Number Variable", {c: "win", closeable: 1, modal:1,id: "Add a num Variable", 
                     v: [{ v: " ", id: "inpt_addnum_name", cap:"Name", input: 1 },{ v: "", id: "inpt_addnum_value", cap:"Value", input: 1 },
                         { c: "btn", id: "btn_addnumvar", cap:"Add" }]}],
-  ["Add Text to Display", {c: "win", closeable: 1, id: "Add Text to Display", 
+  ["Add Text to Display", {c: "win", closeable: 1,modal:1, id: "Add Text to Display", 
                     v: [{ v: " ", id: "inpt_print_value", cap:"Text to Display ↓", input: 1 }, 
                     "If you want to print a variable you've already set, type the name of the variable",
                         { c: "btn", id:"btn_println", cap: "Print" }]}],
-  ["Save JavaScript File", {c: "win", modal:1,id: "Download the JavaScript File?", 
+  ["Save JavaScript File", {c: "win", closeable: 1,modal:1,id: "Download the JavaScript File?", 
                     v:["Are you sure you want to download the JavaScript file?",
                         { c: "btn", id: "btn_savejsfile", cap:"Yes"}]}],
-  ["Load JavaScript File", {c: "win", modal:1, id: "Load the JavaScript File?", 
-                    v:["Select the JavaScript file you want to lead?", {c: "txt", id: "txt_loadjsfile", cap:"File to Load:", input: 1},
-                        { c: "btn", id: "btn_loadejsfile", cap:"Yes"}]}]
+  ["Load JavaScript File", {c: "win", closeable: 1,modal:1, id: "Load the JavaScript File?", 
+                    v:["Select the JavaScript file you want to load?", {id:"myfile", cap:"",c:"file",accepts:"text"},
+                        { c: "btn", id: "btn_loadejsfile", cap:"Open"}]}]
 ]);
 
 let latestcode = '{"v":[\n  \n]}\n';
-let jscode = "";
-let inpt_addtxt_name, inpt_addtxt_value, inpt_print_value, inpt_addnum_name, inpt_addnum_value;
+let jscode, newcode = "";
+let inpt_addtxt_name, inpt_addtxt_value, inpt_print_value, inpt_addnum_name, inpt_addnum_value, filecontent;
 let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
 
   app.start(event=>{app.display({
@@ -31,7 +31,6 @@ let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
       value: [
         { id: "Your space"},
         { id: "Things to Do", v: [...COMPONENTS.keys()].map((x) => ({ id: x, c: "btn" }))},
-        { id: "Edit space"}
       ]
     });
   });
@@ -42,17 +41,17 @@ let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
 
   app.event({}, event=>{
     if (COMPONENTS.has(event.u)) { // if any of the "do" actions are clicked
-      let preview = JSON.parse(latestcode); // the next 5 lines populate the 'Your space' Board
-      preview.v.push(COMPONENTS.get(event.u));
-      preview.id = "Edit space";
-      preview.i = 0;
-      app.display({queue:[{U:"Edit space", v:null},{ add: [preview] }]});
+      // let preview = JSON.parse(latestcode); // the next 5 lines populate the 'Your space' Board
+      // preview.v.push(C);
+      
+      app.display({queue:[{add:[COMPONENTS.get(event.u)]}]});
     }
     else if (event.u === "inpt_addtxt_name") { inpt_addtxt_name = event.v;} 
     else if (event.u === "inpt_addtxt_value") { inpt_addtxt_value = event.v;}
     else if (event.u === "inpt_print_value") { inpt_print_value = event.v;}
     else if (event.u === "inpt_addnum_name") { inpt_addnum_name = event.v;}
     else if (event.u === "inpt_addnum_value") { inpt_addnum_value = Number(event.v);}
+    else if (event.u === "myfile") { filecontent = event.v;}
     else if (event.u === "btn_savejsfile") { // if save button clicked
       for(const element of code.functions.home.vars) {
         if (element.type === "text") {
@@ -66,11 +65,10 @@ let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
           jscode += ("console.log(\"" + element.value + "\");");
         }
       }
-      app.display({save:['javascript.js',jscode]});
+      let savablecode = JSON.stringify(code);
+      app.display({save:['javascript.json', savablecode]});
     }
-    else if (event.u === "btn_loadejsfile") { // if load button clicked
-      //app.display({open:['javascript.js']});
-    }
+    
     else if (event.u === "btn_addtextvar") { // if add text variable
       if (code.functions.home.vars.length === 0) {
         code.functions.home.vars.push({type:"text",name:inpt_addtxt_name.trim(),value:inpt_addtxt_value.trim()});
@@ -112,15 +110,15 @@ let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
       app.display({U:"Your space", v:[]});
       } 
       else{
-        app.display({U:"Your space", add:[{id:'Warning',v:'Please enter a valid number.'}]});
+        app.display({add:[{c: "win", closeable: 1, modal:1, v: ["Please enter a number in the value field."]}]});
       }
     }
     else if (event.u === "btn_println") { // if add print statement
       code.functions.home.commands.push({type:"print",value:inpt_print_value.trim()});
       app.display({U:"Your space", v:[]});
     }
-
-    app.display({U:"Your space", v:[]});
+    
+      app.display({U:"Your space", v:[]});
       for(const element of code.functions.home.vars) {
         if (element.type === "text") {
           app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = \"" + element.value + "\";" }]});
@@ -135,10 +133,28 @@ let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
       }
   
   });
-  
-      // clearing the Edit space board and updating with the latest values from the Code Object
+  app.event({u:'btn_loadejsfile'}, event=>{
+    // if load button clicked
+      if (event.v !== undefined) {
+        let filestin = JSON.parse(filecontent);
+        for(const element of filestin.functions.home.vars) {
+          if (element.type === "text") {
+            newcode += ("let " + element.name + " = \"" + element.value + "\";" + "\n");
+          } else {
+            newcode += ("let " + element.name + " = " + element.value + ";" + "\n");
+          }
+        }
+        for(const element of filestin.functions.home.commands) {
+          if (element.type === "print") {
+            newcode += ("console.log(\"" + element.value + "\");" + "\n");
+          }
+        }
+        app.display({add:[{newcode}]});
       
-    // }
-//work to do:
-  // 1. printing a variable or input message option (maybe with a context menu option)
-  // 2. 
+      
+    }
+
+  }); 
+
+  // list of things to work with
+  
