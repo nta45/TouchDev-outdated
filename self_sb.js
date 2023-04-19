@@ -40,7 +40,7 @@ let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
 
 
   app.event({}, event=>{
-    if (COMPONENTS.has(event.u) && event.v===True) { // if any of the "do" actions are clicked
+    if (COMPONENTS.has(event.u) && event.v===true) { // if any of the "do" actions are clicked
       // let preview = JSON.parse(latestcode); // the next 5 lines populate the 'Your space' Board
       // preview.v.push(C);
       
