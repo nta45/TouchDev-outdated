@@ -9,8 +9,8 @@ let COMPONENTS = new Map([
   ["Add a Number Variable", {c: "win", closeable: 1, modal:1,id: "Add a num Variable", 
                     v: [{ v: " ", id: "inpt_addnum_name", cap:"Name", input: 1 },{ v: "", id: "inpt_addnum_value", cap:"Value", input: 1 },
                         { c: "btn", id: "btn_addnumvar", cap:"Add" }]}],
-  ["Add Text to Display", {c: "win", closeable: 1,modal:1, id: "Add Text to Display", 
-                    v: [{ v: " ", id: "inpt_print_value", cap:"Text to Display ↓", input: 1 }, 
+  ["Add Text to Display", {c: "win", closeable: 1,modal:1, id: "Add text to display...", 
+                    v: [{ v: "", id: "inpt_print_value", cap:"Text to Display ↓", input: 1 }, 
                     "If you want to print a variable you've already set, type the name of the variable",
                         { c: "btn", id:"btn_println", cap: "Print" }]}],
   ["Save JavaScript File", {c: "win", closeable: 1,modal:1,id: "Download the JavaScript File?", 
@@ -40,7 +40,7 @@ let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
 
 
   app.event({}, event=>{
-    if (COMPONENTS.has(event.u)) { // if any of the "do" actions are clicked
+    if (COMPONENTS.has(event.u) && event.v===True) { // if any of the "do" actions are clicked
       // let preview = JSON.parse(latestcode); // the next 5 lines populate the 'Your space' Board
       // preview.v.push(C);
       
