@@ -8,7 +8,7 @@
 }
 
 
-[id = "Your space"] {background:linear-gradient(to bottom right,white 75%,rgb(240, 255, 255) 85%,rgb(219, 236, 250));
+[id = "Your space"] {color:rgb(63, 6, 6);background:linear-gradient(to bottom right,white 75%,rgb(240, 255, 255) 85%,rgb(219, 236, 250));
     box-shadow:-1px -1px 1px lightgray;padding:5px;grid-area:lt / lm / lb}
 
 [id="Things to Do"] {grid-area:rt;display:flex;flex-direction:row}
