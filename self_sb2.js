@@ -3,26 +3,28 @@
 logToConsole();
 
 let COMPONENTS = new Map([
-  ["Add a Text Variable", {c: "win", closeable: 1, modal:1, id: "Add a Variable", 
+  ["Modules", {c: "win", closeable: 1, modal:1, id: "Add a Variable", 
                     v: [{ v: "", id: "inpt_addtxt_name", cap:"Name", input: 1 },{ v: "", id: "inpt_addtxt_value", cap:"Value", input: 1 },
                         { c: "btn", id: "btn_addtextvar", cap:"Add" }]}],
-  ["Add a Number Variable", {c: "win", closeable: 1, modal:1,id: "Add a num Variable", 
-                    v: [{ v: "", id: "inpt_addnum_name", cap:"Name", input: 1 },{ v: "", id: "inpt_addnum_value", cap:"Value", input: 1 },
-                        { c: "btn", id: "btn_addnumvar", cap:"Add" }]}],
-  ["Add Text to Display", {c: "win", closeable: 1,modal:1, id: "Add text to display...", 
+  ["Print", {c: "win", closeable: 1,modal:1, id: "Add text to display...", 
                     v: [{ v: "", id: "inpt_print_value", cap:"Text to Display ↓", input: 1 }, 
                     "If you want to print a variable you've already set, type the name of the variable",
                         { c: "btn", id:"btn_println", cap: "Print" }]}],
+  ["Add a Number Variable", {c: "win", closeable: 1, modal:1,id: "Add a num Variable", 
+                    v: [{ v: "", id: "inpt_addnum_name", cap:"Name", input: 1 },{ v: "", id: "inpt_addnum_value", cap:"Value", input: 1 },
+                        { c: "btn", id: "btn_addnumvar", cap:"Add" }]}],
+  
   ["Save JSON File", {c: "win", closeable: 1,modal:1,id: "Download the JSON File?", 
                     v:["Are you sure you want to download the JSON file?",
                         { c: "btn", id: "btn_savejsfile", cap:"Yes"}]}],
   ["Load JSON File", {c: "win", closeable: 1,modal:1, id: "Load the JSON File?", 
                     v:["Select the JSON file you want to load?", {id:"myfile", cap:"",c:"file",accepts:"text"},
-                        { c: "btn", id: "btn_loadejsfile", cap:"Open"}]}],
-  // link to index2.html
-  ["Open Prototype 1", {c: "win", closeable: 1,modal:1, id: "Open Prototype 1", 
-                    v:[{ c: "btn", id: "prot1", cap:"Open"}]}] 
+                        { c: "btn", id: "btn_loadejsfile", cap:"Open"}]}]
 ]);
+
+// let MENUBUTTON = new Map([
+    
+//   ]);
 
 let latestcode = '{"v":[\n  \n]}\n';
 let jscode, newcode = "";
@@ -30,9 +32,20 @@ let inpt_addtxt_name, inpt_addtxt_value, inpt_print_value, inpt_addnum_name, inp
 let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
 
   app.start(event=>{app.display({
-      cap: "JavaScript TouchDev (in-progress)", require: { c: ["grid", "opt"] }, style: "self_sb.css",
+      cap: "Prototype 1 (Summer Research)", require: { c: ["grid", "opt"] }, style: "self_sb2.css",
       value: [
         { id: "Your space"},
+        { id: "Options", cap:"", v: [{c:"btn",
+        id:"Menu",
+        ctx:{toggle:1, v:[
+         "This is a context menu",
+         {c:"opt",id:"Select Me"},
+         {c:"btn",id:"Menu Option 1"},
+         {c:"btn",id:"Menu Option 2"},
+         {c:"btn",id:"Menu Option 3"}
+        ]}}]
+    },
+        { id: "Options 2", cap:"1"},
         { id: "Things to Do", v: [...COMPONENTS.keys()].map((x) => ({ id: x, c: "btn" }))},
       ]
     });
@@ -46,8 +59,10 @@ let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
     if (COMPONENTS.has(event.u) && event.v===true) {
       app.display({queue:[{add:[COMPONENTS.get(event.u)]}]});
     }
+    // else if (MENUBUTTON.has(event.u) && event.v===true) {
+    //     app.display({queue:[{add:[MENUBUTTON.get(event.u)]}]});
+    //   }
     else if (event.u === "inpt_addtxt_name") { inpt_addtxt_name = event.v;} 
-    else if (event.u === "prot1") { window.location.href = "index2.html";} 
     else if (event.u === "inpt_addtxt_value") { inpt_addtxt_value = event.v;}
     else if (event.u === "inpt_print_value") { inpt_print_value = event.v;}
     else if (event.u === "inpt_addnum_name") { inpt_addnum_name = event.v;}
