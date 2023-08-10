@@ -19,12 +19,12 @@ let COMPONENTS = new Map([
                         { c: "btn", id: "btn_savejsfile", cap:"Yes"}]}],
   ["Load JSON File", {c: "win", closeable: 1,modal:1, id: "Load the JSON File?", 
                     v:["Select the JSON file you want to load?", {id:"myfile", cap:"",c:"file",accepts:"text"},
-                        { c: "btn", id: "btn_loadejsfile", cap:"Open"}]}]
+                        { c: "btn", id: "btn_loadejsfile", cap:"Open"}]}],
 ]);
 
-// let MENUBUTTON = new Map([
-    
-//   ]);
+let MENUBUTTON = new Map([
+     
+  ]);
 
 let latestcode = '{"v":[\n  \n]}\n';
 let jscode, newcode = "";
@@ -36,16 +36,23 @@ let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
       value: [
         { id: "Your space"},
         { id: "Options", cap:"", v: [{c:"btn",
-        id:"Menu",
-        ctx:{toggle:1, v:[
-         "This is a context menu",
-         {c:"opt",id:"Select Me"},
-         {c:"btn",id:"Menu Option 1"},
-         {c:"btn",id:"Menu Option 2"},
-         {c:"btn",id:"Menu Option 3"}
-        ]}}]
-    },
-        { id: "Options 2", cap:"1"},
+            id:"Menu",
+            ctx:{toggle:1, v:[
+            "This is a context menu",
+            {c:"opt",id:"Select Me"},
+            {c:"btn",id:"Menu Option 1"},
+            {c:"btn",id:"Menu Option 2"},
+            {c:"btn",id:"Menu Option 3"}
+            ]}}]
+        },
+        { id: "Options 1", cap:"", v: [
+          {c:"btn", id:"A", ctx:{toggle:1, v:[]}},
+          {c:"btn", id:"B", ctx:{toggle:1, v:[]}},
+          {c:"btn", id:"C", ctx:{toggle:1, v:[]}}]},
+        { id: "Options 2", cap:"", v: [
+          {c:"btn", id:"X", ctx:{toggle:1, v:[]}},
+          {c:"btn", id:"Y", ctx:{toggle:1, v:[]}},
+          {c:"btn", id:"Z", ctx:{toggle:1, v:[]}}]},
         { id: "Things to Do", v: [...COMPONENTS.keys()].map((x) => ({ id: x, c: "btn" }))},
       ]
     });
