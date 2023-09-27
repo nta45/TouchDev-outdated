@@ -48,10 +48,12 @@ let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
 
 
   app.event({}, event=>{
-    if (event.u === "➕\n New File") { window.location.href = "index.html";} 
-    else if (event.u === "📁\n Open File") { window.location.href = "index2.html";} 
+    if (event.u === "➕\n New File") { window.location.href = "../index.html";} 
+    else if (event.u === "📁\n Open File") { app.display({U:"Get Started", v:["Select the JSON file you want to load?", {id:"myfile", cap:"",c:"file",accepts:"text"},
+    { c: "btn", id: "btn_loadejsfile", cap:"Open"}, { c: "btn", id: "cancel", cap:"Cancel"}]})} 
     else if (event.u === "❓\n Help") { window.location.href = "help.html";}
     else if (event.u === "myfile") { filecontent = event.v;}
+    else if (event.u === "cancel") { window.location.href = "mainindex.html";}
     
   });
 

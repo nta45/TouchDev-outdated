@@ -20,23 +20,20 @@ let COMPONENTS = new Map([
                     v:["Select the JSON file you want to load?", {id:"myfile", cap:"",c:"file",accepts:"text"},
                         { c: "btn", id: "btn_loadejsfile", cap:"Open"}]}],
   // link to index2.html
-  ["Open Prototype 1", {c: "win", closeable: 1,modal:1, id: "Open Prototype 1", 
-                    v:[{ c: "btn", id: "prot1", cap:"Open"}]}],
-  ["New Code Format Draft", {c: "win", closeable: 1,modal:1, id: "selfsb3drft", 
-                    v:[{ c: "btn", id: "selfsb3", cap:"Open"}]}],
-  ["Front Page Draft", {c: "win", closeable: 1,modal:1, id: "fpagedrft", 
-                    v:[{ c: "btn", id: "fpage", cap:"Open"}]}]
+  // ["Open Prototype 1", {c: "win", closeable: 1,modal:1, id: "Open Prototype 1", 
+  //                   v:[{ c: "btn", id: "prot1", cap:"Open"}]}] 
 ]);
 
 let latestcode = '{"v":[\n  \n]}\n';
 let jscode, newcode = "";
 let inpt_addtxt_name, inpt_addtxt_value, inpt_print_value, inpt_addnum_name, inpt_addnum_value, filecontent;
+// let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
+// let code = {vars:[], commands:[]};
 let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
-let intcode = {var:{},cmd:{}};
-
+let intcode = {var:[],cmd:[]};
 
   app.start(event=>{app.display({
-      cap: "JavaScript TouchDev (in-progress)", require: { c: ["grid", "opt"] }, style: "self_sb.css",
+      cap: "JavaScript TouchDev (in-progress)", require: { c: ["grid", "opt"] }, style: "self_sb_3.css",
       value: [
         { id: "Your space"},
         { id: "Things to Do", v: [...COMPONENTS.keys()].map((x) => ({ id: x, c: "btn" }))},
@@ -48,42 +45,28 @@ let intcode = {var:{},cmd:{}};
   // NEW FORMAT IS THIS ↑
 
 
-  app.event({}, event=>{
+  app.event({}, event => {
     if (COMPONENTS.has(event.u) && event.v===true) {
       app.display({queue:[{add:[COMPONENTS.get(event.u)]}]});
     }
     else if (event.u === "inpt_addtxt_name") { inpt_addtxt_name = event.v;} 
-    else if (event.u === "prot1") { window.location.href = "prot2/index2.html";}
-    else if (event.u === "selfsb3") { window.location.href = "cdraft/index3.html";}
-    else if (event.u === "fpage") { window.location.href = "frontpage/mainindex.html";}   
+    else if (event.u === "prot1") { window.location.href = "index2.html";} 
     else if (event.u === "inpt_addtxt_value") { inpt_addtxt_value = event.v;}
     else if (event.u === "inpt_print_value") { inpt_print_value = event.v;}
     else if (event.u === "inpt_addnum_name") { inpt_addnum_name = event.v;}
     else if (event.u === "inpt_addnum_value") { inpt_addnum_value = Number(event.v);}
     else if (event.u === "myfile") { filecontent = event.v;}
     else if (event.u === "btn_savejsfile") { 
-      for(const element of code.functions.home.vars) {
-        if (element.type === "text") {
-          jscode += ("let " + element.name + " = \"" + element.value + "\";");
-        } else {
-          jscode += ("let " + element.name + " = " + element.value + ";");
-        }
-      }
-      for(const element of code.functions.home.commands) {
-        if (element.type === "print") {
-          jscode += ("console.log(\"" + element.value + "\");");
-        }
-      }
-      let savablecode = JSON.stringify(code);
-      app.display({save:['javascript.json', savablecode]});
+      app.display({save:['javascript.json', JSON.stringify(intcode)]});
     }
     
     else if (event.u === "btn_addtextvar") {
-      if (code.functions.home.vars.length === 0) {
-        code.functions.home.vars.push({type:"text",name:inpt_addtxt_name.trim(),value:inpt_addtxt_value.trim()});
+      let pushable = {type:"text",name:inpt_addtxt_name.trim(),value:inpt_addtxt_value.trim()};
+      if (intcode.var.length === 0) {
+        intcode.var.push(pushable);
       } else {
         let nameFound = false;
-        for (const element of code.functions.home.vars) {
+        for (const element of intcode.var) {
           if (element.name === inpt_addtxt_name.trim()) {
             element.value = inpt_addtxt_value.trim();
             nameFound = true;
@@ -92,28 +75,29 @@ let intcode = {var:{},cmd:{}};
           } 
         }
         if(!nameFound){
-            code.functions.home.vars.push({type:"text",name:inpt_addtxt_name.trim(),value:inpt_addtxt_value.trim()});
+            intcode.var.push(pushable);
         }
         
       }
       app.display({U:"Your space", v:[]});
-    }
+     }
     else if (event.u === "btn_addnumvar") {
+      let pushable = {type:"number",name:inpt_addnum_name.trim(),value:inpt_addnum_value};
       if (Number.isFinite(inpt_addnum_value)) {
-        if (code.functions.home.vars.length === 0) {
-          code.functions.home.vars.push({type:"number",name:inpt_addnum_name.trim(),value:inpt_addnum_value});
+        if (intcode.var.length === 0) {
+          intcode.var.push(pushable);
         } else {
           let numberFound = false;
-          for (const element of code.functions.home.vars) {
-          if (element.name === inpt_addnum_name.trim()) {
-            element.value = inpt_addnum_value;
-            numberFound = true;
-            app.display({U:"Your space", v:[]});
-            break;
-          } 
+          for (const element of intcode.var) {
+            if (element.name === inpt_addnum_name.trim()) {
+              element.value = inpt_addnum_value;
+              numberFound = true;
+              app.display({U:"Your space", v:[]});
+              break;
+            } 
         }
         if(!numberFound){
-            code.functions.home.vars.push({type:"number",name:inpt_addnum_name.trim(),value:inpt_addnum_value});
+            intcode.var.push(pushable);
         }}
   
       app.display({U:"Your space", v:[]});
@@ -123,20 +107,20 @@ let intcode = {var:{},cmd:{}};
       }
     }
     else if (event.u === "btn_println") {
-      code.functions.home.commands.push({type:"print",value:inpt_print_value.trim()});
+      intcode.cmd.push({type:"print",value:inpt_print_value.trim()});
       app.display({U:"Your space", v:[]});
     }
     else if (event.u === "btn_loadejsfile") {
       if (event.v != undefined) {
         let filestin = JSON.parse(filecontent);
-        for(const element of filestin.functions.home.vars) {
+        for(const element of filestin.var) {
           if (element.type === "text") {
             newcode += ("let " + element.name + " = \"" + element.value + "\";" + "\n");
           } else {
             newcode += ("let " + element.name + " = " + element.value + ";" + "\n");
           }
         }
-        for(const element of filestin.functions.home.commands) {
+        for(const element of filestin.cmd) {
           if (element.type === "print") {
             newcode += ("console.log(\"" + element.value + "\");" + "\n");
           }
@@ -146,24 +130,18 @@ let intcode = {var:{},cmd:{}};
     }
     
       if(newcode!== ""){app.display({U:"Your space", v:[newcode]});}else{app.display({U:"Your space", v:[]});}
-      for(const element of code.functions.home.vars) {
-        if (element.type === "text") {
+      for(const element of intcode.var) {
+        if (element.type === "text") {1
           app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = \"" + element.value + "\";" }]});
-          intcode.var.push({var:{type:"text",name:element.name,value:element.value}});
-        } else {
+        } else if ( element.type === "number") {
           app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = " + element.value + ";" }]});
-          intcode.var.push({var:{type:"number",name:element.name,value:element.value}});
         }
       }
-      for(const element of code.functions.home.commands) {
-        if (element.type === "print") {
-          app.display({U:"Your space",add: [{ c: "txt", v: "console.log(\"" + element.value + "\");" }]});
-          intcode.cmd.push({cmd:{type:"print",value:element.value}});
-        }
+      for(const element of intcode.cmd) {
+           app.display({U:"Your space",add: [{ c: "txt", v: "console.log(\"" + element.value + "\");" }]});
+        
       }
-      console.log("code: " + code);
       console.log("intcode: " + intcode);
-  
   });
 
   // list of things to work with
