@@ -19,7 +19,7 @@ let COMPONENTS = new Map([
   ["Load JSON File", {c: "win", closeable: 1,modal:1, id: "Load the JSON File?", 
                     v:["Select the JSON file you want to load?", {id:"myfile", cap:"",c:"file",accepts:"text"},
                         { c: "btn", id: "btn_loadejsfile", cap:"Open"}]}],
-  // link to index2.html
+  // link to index2.html - change here
   // ["Open Prototype 1", {c: "win", closeable: 1,modal:1, id: "Open Prototype 1", 
   //                   v:[{ c: "btn", id: "prot1", cap:"Open"}]}] 
 ]);
