@@ -140,7 +140,12 @@ let intcode = [];
     }
   });
 
-  // list of things to work with
-  //  - making the window closable once the user clicks on the add button
+  // SELF-SB-4 object shows 3 variables added as
+  // intcode = {
+  //   {var: [type:"", name:"", value:""]},
+  //   {var: [type:"", name:"", value:""]},
+  //   {cmd: [type:"", value:""]}
+  //   {var: [type:"", name:"", value:""]},
+  //}
   
   

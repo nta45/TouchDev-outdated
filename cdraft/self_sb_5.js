@@ -30,7 +30,7 @@ let inpt_addtxt_name, inpt_addtxt_value, inpt_print_value, inpt_addnum_name, inp
 // let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
 // let code = {vars:[], commands:[]};
 let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
-let intcode = {var:[],cmd:[]};
+let intcode = [];
 
   app.start(event=>{app.display({
       cap: "JavaScript TouchDev (in-progress)", require: { c: ["grid", "opt"] }, style: "self_sb_3.css",
@@ -61,43 +61,43 @@ let intcode = {var:[],cmd:[]};
     }
     
     else if (event.u === "btn_addtextvar") {
-      let pushable = {type:"text",name:inpt_addtxt_name.trim(),value:inpt_addtxt_value.trim()};
-      if (intcode.var.length === 0) {
-        intcode.var.push(pushable);
+      let pushable = {var:{type:"text",name:inpt_addtxt_name.trim(),value:inpt_addtxt_value.trim()}};
+      if (intcode.length === 0) {
+        intcode.push(pushable);
       } else {
         let nameFound = false;
-        for (const element of intcode.var) {
-          if (element.name === inpt_addtxt_name.trim()) {
-            element.value = inpt_addtxt_value.trim();
+        for (const element of intcode) {
+          if (element.var && element.var.name === inpt_addtxt_name.trim()) {
+            element.var.value = inpt_addtxt_value.trim();
             nameFound = true;
             app.display({U:"Your space", v:[]});
             break;
           } 
         }
         if(!nameFound){
-            intcode.var.push(pushable);
+            intcode.push(pushable);
         }
         
       }
       app.display({U:"Your space", v:[]});
      }
     else if (event.u === "btn_addnumvar") {
-      let pushable = {type:"number",name:inpt_addnum_name.trim(),value:inpt_addnum_value};
+      let pushable = {var:{type:"number",name:inpt_addnum_name.trim(),value:inpt_addnum_value}};
       if (Number.isFinite(inpt_addnum_value)) {
-        if (intcode.var.length === 0) {
-          intcode.var.push(pushable);
+        if (intcode.length === 0) {
+          intcode.push(pushable);
         } else {
           let numberFound = false;
-          for (const element of intcode.var) {
-            if (element.name === inpt_addnum_name.trim()) {
-              element.value = inpt_addnum_value;
+          for (const element of intcode) {
+            if (element.var && element.var.name === inpt_addnum_name.trim()) {
+              element.var.value = inpt_addnum_value;
               numberFound = true;
               app.display({U:"Your space", v:[]});
               break;
             } 
         }
         if(!numberFound){
-            intcode.var.push(pushable);
+            intcode.push(pushable);
         }}
   
       app.display({U:"Your space", v:[]});
@@ -107,22 +107,20 @@ let intcode = {var:[],cmd:[]};
       }
     }
     else if (event.u === "btn_println") {
-      intcode.cmd.push({type:"print",value:inpt_print_value.trim()});
+      intcode.push({cmd:{type:"print",value:inpt_print_value.trim()}});
       app.display({U:"Your space", v:[]});
     }
     else if (event.u === "btn_loadejsfile") {
       if (event.v != undefined) {
         let filestin = JSON.parse(filecontent);
-        for(const element of filestin.var) {
-          if (element.type === "text") {
-            newcode += ("let " + element.name + " = \"" + element.value + "\";" + "\n");
-          } else {
-            newcode += ("let " + element.name + " = " + element.value + ";" + "\n");
+        for(const element of filestin) {
+          if (element.var && element.var.type === "text") {
+            newcode += ("let " + element.var.name + " = \"" + element.var.value + "\";" + "\n");
+          } else if (element.var && element.var.type === "number") {
+            newcode += ("let " + element.var.name + " = " + element.var.value + ";" + "\n");
           }
-        }
-        for(const element of filestin.cmd) {
-          if (element.type === "print") {
-            newcode += ("console.log(\"" + element.value + "\");" + "\n");
+          else if (element.cmd && element.cmd.type === "print") {
+            newcode += ("console.log(\"" + element.cmd.value + "\");" + "\n");
           }
         }
         app.display({U:"Your space", add:[newcode]});
@@ -130,31 +128,24 @@ let intcode = {var:[],cmd:[]};
     }
     
       if(newcode!== ""){app.display({U:"Your space", v:[newcode]});}else{app.display({U:"Your space", v:[]});}
-      for(const element of intcode.var) {
-        if (element.type === "text") {1
-          app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = \"" + element.value + "\";" }]});
-        } else if ( element.type === "number") {
-          app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = " + element.value + ";" }]});
-        }
-      }
-      for(const element of intcode.cmd) {
-           app.display({U:"Your space",add: [{ c: "txt", v: "console.log(\"" + element.value + "\");" }]});
+      for(const element of intcode) {
+        if (element.var && element.var.type === "text") {1
+          app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.var.name + " = \"" + element.var.value + "\";" }]});
+        } else if ( element.var && element.var.type === "number") {
+          app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.var.name + " = " + element.var.value + ";" }]});
+        } else if ( element.cmd && element.cmd.type === "print"){  app.display({U:"Your space",add: [{ c: "txt", v: "console.log(\"" + element.cmd.value + "\");" }]});
         
       }
       console.log("intcode: " + intcode);
+    }
   });
 
-  // SELF-SB-3 object shows 3 variables added as
-  // int code = {
-  //   var: [
-  //     {type:"text",name:"name",value:"value"},
-  //     {type:"number",name:"name",value:0},
-  //     {type:"text",name:"name",value:"value"}
-  //   ],
-  //   cmd: [
-  //     {type:"print",value:"value"},
-  //     {type:"print",value:"value"},
-  //     {type:"print",value:"value"}
-  //   ]
+  // SELF-SB-4 object shows 3 variables added as
+  // intcode = {
+  //   {var: [type:"", name:"", value:""]},
+  //   {var: [type:"", name:"", value:""]},
+  //   {cmd: [type:"", value:""]}
+  //   {var: [type:"", name:"", value:""]},
   //}
+  
   
