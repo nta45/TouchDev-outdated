@@ -22,8 +22,8 @@ let COMPONENTS = new Map([
   // link to index2.html
   ["Open Prototype 1", {c: "win", closeable: 1,modal:1, id: "Open Prototype 1", 
                     v:[{ c: "btn", id: "prot1", cap:"Open"}]}],
-  ["New Code Format Draft", {c: "win", closeable: 1,modal:1, id: "selfsb3drft", 
-                    v:[{ c: "btn", id: "selfsb3", cap:"Open"}]}],
+  ["New Code Format Draft 10/4", {c: "win", closeable: 1,modal:1, id: "selfsb5drft", 
+                    v:[{ c: "btn", id: "selfsb5", cap:"Open"}]}],
   ["Front Page Draft", {c: "win", closeable: 1,modal:1, id: "fpagedrft", 
                     v:[{ c: "btn", id: "fpage", cap:"Open"}]}]
 ]);
@@ -54,7 +54,7 @@ let intcode = {var:{},cmd:{}};
     }
     else if (event.u === "inpt_addtxt_name") { inpt_addtxt_name = event.v;} 
     else if (event.u === "prot1") { window.location.href = "prot2/index2.html";}
-    else if (event.u === "selfsb3") { window.location.href = "cdraft/index3.html";}
+    else if (event.u === "selfsb5") { window.location.href = "cdraft/index5.html";}
     else if (event.u === "fpage") { window.location.href = "frontpage/mainindex.html";}   
     else if (event.u === "inpt_addtxt_value") { inpt_addtxt_value = event.v;}
     else if (event.u === "inpt_print_value") { inpt_print_value = event.v;}

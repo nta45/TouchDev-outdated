@@ -29,7 +29,7 @@ let jscode, newcode = "";
 let inpt_addtxt_name, inpt_addtxt_value, inpt_print_value, inpt_addnum_name, inpt_addnum_value, filecontent;
 // let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
 // let code = {vars:[], commands:[]};
-let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
+// let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
 let intcode = [];
 
   app.start(event=>{app.display({
@@ -61,7 +61,7 @@ let intcode = [];
     }
     
     else if (event.u === "btn_addtextvar") {
-      let pushable = {var:{type:"text",name:inpt_addtxt_name.trim(),value:inpt_addtxt_value.trim()}};
+      let pushable = {var:{type:"LET_STATEMENT", name:inpt_addtxt_name.trim(), value:inpt_addtxt_value.trim(), variableType:"STRING"}};
       if (intcode.length === 0) {
         intcode.push(pushable);
       } else {
@@ -82,7 +82,7 @@ let intcode = [];
       app.display({U:"Your space", v:[]});
      }
     else if (event.u === "btn_addnumvar") {
-      let pushable = {var:{type:"number",name:inpt_addnum_name.trim(),value:inpt_addnum_value}};
+      let pushable = {var:{type:"LET_STATEMENT",name:inpt_addnum_name.trim(),value:inpt_addnum_value, variableType:"NUMBER"}};
       if (Number.isFinite(inpt_addnum_value)) {
         if (intcode.length === 0) {
           intcode.push(pushable);
@@ -107,20 +107,20 @@ let intcode = [];
       }
     }
     else if (event.u === "btn_println") {
-      intcode.push({cmd:{type:"print",value:inpt_print_value.trim()}});
+      intcode.push({cmd:{type:"FUNCTION_CALL_STATEMENT",name:"print", args:[inpt_print_value.trim()]}});
       app.display({U:"Your space", v:[]});
     }
     else if (event.u === "btn_loadejsfile") {
       if (event.v != undefined) {
         let filestin = JSON.parse(filecontent);
         for(const element of filestin) {
-          if (element.var && element.var.type === "text") {
+          if (element.var && element.var.variabletype === "STRING") {
             newcode += ("let " + element.var.name + " = \"" + element.var.value + "\";" + "\n");
-          } else if (element.var && element.var.type === "number") {
+          } else if (element.var && element.var.variabletype === "NUMBER") {
             newcode += ("let " + element.var.name + " = " + element.var.value + ";" + "\n");
           }
-          else if (element.cmd && element.cmd.type === "print") {
-            newcode += ("console.log(\"" + element.cmd.value + "\");" + "\n");
+          else if (element.cmd && element.cmd.name === "print") {
+            newcode += ("console.log(\"" + element.cmd.args + "\");" + "\n");
           }
         }
         app.display({U:"Your space", add:[newcode]});
@@ -129,11 +129,11 @@ let intcode = [];
     
       if(newcode!== ""){app.display({U:"Your space", v:[newcode]});}else{app.display({U:"Your space", v:[]});}
       for(const element of intcode) {
-        if (element.var && element.var.type === "text") {1
+        if (element.var && element.var.variableType === "STRING") {
           app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.var.name + " = \"" + element.var.value + "\";" }]});
-        } else if ( element.var && element.var.type === "number") {
+        } else if ( element.var && element.var.variableType === "NUMBER") {
           app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.var.name + " = " + element.var.value + ";" }]});
-        } else if ( element.cmd && element.cmd.type === "print"){  app.display({U:"Your space",add: [{ c: "txt", v: "console.log(\"" + element.cmd.value + "\");" }]});
+        } else if ( element.cmd && element.cmd.name === "print"){  app.display({U:"Your space",add: [{ c: "txt", v: "console.log(\"" + element.cmd.args + "\");" }]});
         
       }
       console.log("intcode: " + intcode);
