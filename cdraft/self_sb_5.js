@@ -106,8 +106,18 @@ let intcode = [];
         app.display({add:[{c: "win", closeable: 1, modal:1, v: ["Please enter a number in the value field."]}]});
       }
     }
+
+    // WORK TO DO: if variable exists, put '_ident' as a prefix; if variable doesn't exist, push as is
+
     else if (event.u === "btn_println") {
-      intcode.push({type:"FUNCTION_CALL_STATEMENT",name:"print", args:["ident_" + inpt_print_value.trim()]});
+      for (const element of intcode) {
+        if (element.name === inpt_print_value.trim()) {
+          inpt_print_value = "ident_" + inpt_print_value.trim();
+        } else {
+          inpt_print_value = inpt_print_value.trim();
+        }
+      }
+      intcode.push({type:"FUNCTION_CALL_STATEMENT",name:"print", args:[inpt_print_value.trim()]});
       app.display({U:"Your space", v:[]});
     }
     else if (event.u === "btn_loadejsfile") {
