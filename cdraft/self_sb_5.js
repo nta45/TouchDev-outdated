@@ -107,7 +107,7 @@ let intcode = [];
       }
     }
     else if (event.u === "btn_println") {
-      intcode.push({type:"FUNCTION_CALL_STATEMENT",name:"print", args:[inpt_print_value.trim()]});
+      intcode.push({type:"FUNCTION_CALL_STATEMENT",name:"print", args:["ident_" + inpt_print_value.trim()]});
       app.display({U:"Your space", v:[]});
     }
     else if (event.u === "btn_loadejsfile") {
