@@ -61,14 +61,14 @@ let intcode = [];
     }
     
     else if (event.u === "btn_addtextvar") {
-      let pushable = {var:{type:"LET_STATEMENT", name:inpt_addtxt_name.trim(), value:inpt_addtxt_value.trim(), variableType:"STRING"}};
+      let pushable = {type:"LET_STATEMENT", name:inpt_addtxt_name.trim(), value:inpt_addtxt_value.trim(), variableType:"STRING"};
       if (intcode.length === 0) {
         intcode.push(pushable);
       } else {
         let nameFound = false;
         for (const element of intcode) {
-          if (element.var && element.var.name === inpt_addtxt_name.trim()) {
-            element.var.value = inpt_addtxt_value.trim();
+          if (element.name === inpt_addtxt_name.trim()) {
+            element.value = inpt_addtxt_value.trim();
             nameFound = true;
             app.display({U:"Your space", v:[]});
             break;
@@ -82,15 +82,15 @@ let intcode = [];
       app.display({U:"Your space", v:[]});
      }
     else if (event.u === "btn_addnumvar") {
-      let pushable = {var:{type:"LET_STATEMENT",name:inpt_addnum_name.trim(),value:inpt_addnum_value, variableType:"NUMBER"}};
+      let pushable = {type:"LET_STATEMENT",name:inpt_addnum_name.trim(),value:inpt_addnum_value, variableType:"NUMBER"};
       if (Number.isFinite(inpt_addnum_value)) {
         if (intcode.length === 0) {
           intcode.push(pushable);
         } else {
           let numberFound = false;
           for (const element of intcode) {
-            if (element.var && element.var.name === inpt_addnum_name.trim()) {
-              element.var.value = inpt_addnum_value;
+            if (element.name === inpt_addnum_name.trim()) {
+              element.value = inpt_addnum_value;
               numberFound = true;
               app.display({U:"Your space", v:[]});
               break;
@@ -107,20 +107,20 @@ let intcode = [];
       }
     }
     else if (event.u === "btn_println") {
-      intcode.push({cmd:{type:"FUNCTION_CALL_STATEMENT",name:"print", args:[inpt_print_value.trim()]}});
+      intcode.push({type:"FUNCTION_CALL_STATEMENT",name:"print", args:[inpt_print_value.trim()]});
       app.display({U:"Your space", v:[]});
     }
     else if (event.u === "btn_loadejsfile") {
       if (event.v != undefined) {
         let filestin = JSON.parse(filecontent);
         for(const element of filestin) {
-          if (element.var && element.var.variabletype === "STRING") {
-            newcode += ("let " + element.var.name + " = \"" + element.var.value + "\";" + "\n");
-          } else if (element.var && element.var.variabletype === "NUMBER") {
-            newcode += ("let " + element.var.name + " = " + element.var.value + ";" + "\n");
+          if (element.type == "LET_STATEMENT" && element.variabletype === "STRING") {
+            newcode += ("let " + element.name + " = \"" + element.value + "\";" + "\n");
+          } else if (element.type == "LET_STATEMENT" && element.variabletype === "NUMBER") {
+            newcode += ("let " + element.name + " = " + element.value + ";" + "\n");
           }
-          else if (element.cmd && element.cmd.name === "print") {
-            newcode += ("console.log(\"" + element.cmd.args + "\");" + "\n");
+          else if (element.type == "FUNCTION_CALL_STATEMENT" && element.name === "print") {
+            newcode += ("console.log(\"" + element.args + "\");" + "\n");
           }
         }
         app.display({U:"Your space", add:[newcode]});
@@ -129,11 +129,11 @@ let intcode = [];
     
       if(newcode!== ""){app.display({U:"Your space", v:[newcode]});}else{app.display({U:"Your space", v:[]});}
       for(const element of intcode) {
-        if (element.var && element.var.variableType === "STRING") {
-          app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.var.name + " = \"" + element.var.value + "\";" }]});
-        } else if ( element.var && element.var.variableType === "NUMBER") {
-          app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.var.name + " = " + element.var.value + ";" }]});
-        } else if ( element.cmd && element.cmd.name === "print"){  app.display({U:"Your space",add: [{ c: "txt", v: "console.log(\"" + element.cmd.args + "\");" }]});
+        if (element.type == "LET_STATEMENT" && element.variableType === "STRING") {
+          app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = \"" + element.value + "\";" }]});
+        } else if ( element.type == "LET_STATEMENT" && element.variableType === "NUMBER") {
+          app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = " + element.value + ";" }]});
+        } else if ( element.type == "FUNCTION_CALL_STATEMENT" && element.name === "print"){  app.display({U:"Your space",add: [{ c: "txt", v: "console.log(\"" + element.args + "\");" }]});
         
       }
       console.log("intcode: " + intcode);
