@@ -1,0 +1,430 @@
+.work-space {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .work-space .div {
+    background-color: #ffffff;
+    border: 7px solid;
+    border-color: #000000;
+    width: 430px;
+    height: 932px;
+    position: relative;
+  }
+  
+  .work-space .icon-profile {
+    position: absolute;
+    width: 69px;
+    height: 70px;
+    top: 64px;
+    left: 348px;
+  }
+  
+  .work-space .IOS-navigation-bar {
+    position: absolute;
+    width: 157px;
+    height: 8px;
+    top: 920px;
+    left: 136px;
+  }
+  
+  .work-space .dynamic-island {
+    position: absolute;
+    width: 125px;
+    height: 36px;
+    top: 11px;
+    left: 152px;
+    background-color: #000000;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .work-space .camera {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    top: 12px;
+    left: 101px;
+    transform: rotate(90deg);
+  }
+  
+  .work-space .overlap {
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    border: 1px solid;
+    border-color: #a0a9bb20;
+    position: relative;
+    top: -1px;
+    left: -1px;
+  }
+  
+  .work-space .lens {
+    position: relative;
+    width: 8px;
+    height: 6px;
+    top: 3px;
+    left: 2px;
+  }
+  
+  .work-space .overlap-group {
+    width: 10px;
+    height: 8px;
+    position: relative;
+    top: -1px;
+    left: -1px;
+  }
+  
+  .work-space .oval {
+    position: absolute;
+    width: 5px;
+    height: 8px;
+    top: 0;
+    left: 5px;
+    border-radius: 2.56px/4px;
+    box-shadow: inset 0px 0px 1px #00000080;
+    background: radial-gradient(
+      50% 50% at 50% 50%,
+      rgb(31, 133, 222) 0%,
+      rgb(27.15, 116.73, 200.64) 25.79%,
+      rgb(0, 2, 50) 100%
+    );
+  }
+  
+  .work-space .oval-copy {
+    position: absolute;
+    width: 5px;
+    height: 8px;
+    top: 0;
+    left: 0;
+    border-radius: 2.56px/4px;
+    transform: rotate(-180deg);
+    box-shadow: inset 0px 0px 1px #00000080;
+    background: radial-gradient(
+      50% 50% at 50% 50%,
+      rgb(31, 133, 222) 0%,
+      rgb(27.15, 116.73, 200.64) 25.79%,
+      rgb(0, 2, 50) 100%
+    );
+  }
+  
+  .work-space .text-frame {
+    position: absolute;
+    width: 414px;
+    height: 654px;
+    top: 148px;
+    left: 8px;
+    border-radius: 34px;
+    overflow: hidden;
+    border: 4px solid;
+    border-color: #000000;
+    box-shadow: 0px 4px 4px #00000040;
+    overflow-y: scroll;
+  }
+  
+  .work-space .frame-wrapper {
+    width: 412px;
+    height: 1323px;
+    border-radius: 34px;
+    position: relative;
+    top: -1px;
+    left: -1px;
+  }
+  
+  .work-space .frame {
+    position: relative;
+    width: 103px;
+    height: 43px;
+    top: 220px;
+    left: 130px;
+    border-radius: 13px;
+    border: 3px solid;
+    border-color: #000000;
+  }
+  
+  .work-space .icon-more {
+    position: absolute;
+    width: 74px;
+    height: 74px;
+    top: 818px;
+    left: 344px;
+    border-radius: 55px;
+    overflow: hidden;
+    border: 4px solid;
+    border-color: #000000;
+    box-shadow: 0px 4px 4px #00000040;
+  }
+  
+  .work-space .extended-menu {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    top: 18px;
+    left: 18px;
+  }
+  
+  .work-space .frame-2 {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: -2px;
+    left: -2px;
+    border-radius: 5px;
+    border: 3px solid;
+    border-color: #000000;
+  }
+  
+  .work-space .frame-3 {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 18px;
+    left: -2px;
+    border-radius: 5px;
+    border: 3px solid;
+    border-color: #000000;
+  }
+  
+  .work-space .frame-4 {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 18px;
+    left: 18px;
+    border-radius: 5px;
+    border: 3px solid;
+    border-color: #000000;
+  }
+  
+  .work-space .overlap-group-2 {
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    top: -2px;
+    left: 18px;
+  }
+  
+  .work-space .frame-5 {
+    position: absolute;
+    width: 9px;
+    height: 19px;
+    top: 0;
+    left: 5px;
+    background-color: #000000;
+    border-radius: 1px;
+    border: 2px solid;
+  }
+  
+  .work-space .frame-6 {
+    position: absolute;
+    width: 9px;
+    height: 19px;
+    top: 0;
+    left: 5px;
+    background-color: #000000;
+    border-radius: 1px;
+    border: 2px solid;
+    transform: rotate(-90deg);
+  }
+  
+  .work-space .data-type-frame {
+    position: absolute;
+    width: 314px;
+    height: 74px;
+    top: 818px;
+    left: 8px;
+    border-radius: 34px;
+    overflow: hidden;
+    border: 4px solid;
+    border-color: #000000;
+    overflow-x: scroll;
+  }
+  
+  .work-space .overlap-2 {
+    width: 802px;
+    height: 72px;
+    border-radius: 34px;
+    box-shadow: 0px 4px 4px #00000040;
+    position: relative;
+    top: -1px;
+    left: -1px;
+  }
+  
+  .work-space .button-variable {
+    left: 20px;
+    position: absolute;
+    width: 103px;
+    height: 43px;
+    top: 14px;
+    border-radius: 13px;
+    overflow: hidden;
+    border: 3px solid;
+    border-color: #000000;
+  }
+  
+  .work-space .text-wrapper {
+    position: absolute;
+    width: 63px;
+    top: 12px;
+    left: 19px;
+    font-family: "Montserrat-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+  }
+  
+  .work-space .button-constant {
+    left: 130px;
+    position: absolute;
+    width: 103px;
+    height: 43px;
+    top: 14px;
+    border-radius: 13px;
+    overflow: hidden;
+    border: 3px solid;
+    border-color: #000000;
+  }
+  
+  .work-space .text-wrapper-2 {
+    position: absolute;
+    width: 71px;
+    top: 12px;
+    left: 15px;
+    font-family: "Montserrat-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+  }
+  
+  .work-space .button-loops {
+    left: 240px;
+    position: absolute;
+    width: 103px;
+    height: 43px;
+    top: 14px;
+    border-radius: 13px;
+    overflow: hidden;
+    border: 3px solid;
+    border-color: #000000;
+  }
+  
+  .work-space .text-wrapper-3 {
+    position: absolute;
+    width: 47px;
+    top: 12px;
+    left: 27px;
+    font-family: "Montserrat-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+  }
+  
+  .work-space .button-print {
+    left: 350px;
+    position: absolute;
+    width: 103px;
+    height: 43px;
+    top: 14px;
+    border-radius: 13px;
+    overflow: hidden;
+    border: 3px solid;
+    border-color: #000000;
+  }
+  
+  .work-space .text-wrapper-4 {
+    position: absolute;
+    width: 38px;
+    top: 12px;
+    left: 31px;
+    font-family: "Montserrat-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #000000;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+  }
+  
+  .work-space .div-wrapper {
+    position: absolute;
+    width: 103px;
+    height: 43px;
+    top: 14px;
+    left: 460px;
+    border-radius: 13px;
+    overflow: hidden;
+    border: 3px solid;
+    border-color: #000000;
+  }
+  
+  .work-space .frame-7 {
+    position: absolute;
+    width: 103px;
+    height: 43px;
+    top: 14px;
+    left: 570px;
+    border-radius: 13px;
+    overflow: hidden;
+    border: 3px solid;
+    border-color: #000000;
+  }
+  
+  .work-space .frame-8 {
+    position: absolute;
+    width: 103px;
+    height: 43px;
+    top: 14px;
+    left: 680px;
+    border-radius: 13px;
+    overflow: hidden;
+    border: 3px solid;
+    border-color: #000000;
+  }
+  
+  .work-space .feather-icons-more-wrapper {
+    position: absolute;
+    width: 62px;
+    height: 62px;
+    top: 70px;
+    left: 20px;
+    border-radius: 55px;
+    overflow: hidden;
+    border: 4px solid;
+    border-color: #000000;
+    box-shadow: 0px 4px 4px #00000040;
+  }
+  
+  .work-space .feather-icons-more {
+    position: absolute;
+    width: 55px;
+    height: 54px;
+    top: 2px;
+    left: 2px;
+  }
+  
+  .work-space .text-wrapper-5 {
+    position: absolute;
+    width: 207px;
+    top: 111px;
+    left: 112px;
+    font-family: "Montserrat-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #000000;
+    font-size: 30px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+  }
+  

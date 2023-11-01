@@ -1,0 +1,22 @@
+[level="0"]>.frame {
+    width:100%;
+    height:100%;
+    display:grid;
+    grid-template-areas: "lt rt" "lm rm" "lb rb";
+    grid-auto-rows: 1fr 1fr;
+    grid-template-columns: 2.5fr 1.5fr;
+}
+
+
+[id = "Your space"] {color:rgb(63, 6, 6);background:linear-gradient(to bottom right,white 75%,rgb(240, 255, 255) 85%,rgb(219, 236, 250));
+    box-shadow:-1px -1px 1px lightgray;padding:5px;grid-area:lt / lm / lb}
+
+[id="Things to Do"] {grid-area:rt;display:flex;flex-direction:row}
+[id="Things to Do"]>.title {flex: 0 1 auto;}
+[id="Things to Do"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:11pt}
+[id="Things to Do"]>.frame {height:100%;display:flex;flex-direction: column;}
+[id="Things to Do"] {flex: 1 1 auto;}
+[id="Things to Do"] {height:100% !important} */
+
+#Warning {text-align:right;color:#a00}
+#Warning * {display:inline}
