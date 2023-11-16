@@ -27,6 +27,11 @@ let COMPONENTS = new Map([
 let latestcode = '{"v":[\n  \n]}\n';
 let jscode, newcode = "";
 let inpt_addtxt_name, inpt_addtxt_value, inpt_print_value, inpt_addnum_name, inpt_addnum_value, filecontent;
+let currentID = 1;
+
+function generateNewID() {
+  return currentID++;
+}
 // let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
 // let code = {vars:[], commands:[]};
 // let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
@@ -61,7 +66,7 @@ let intcode = [];
     }
     
     else if (event.u === "btn_addtextvar") {
-      let pushable = {type:"LET_STATEMENT", name:inpt_addtxt_name.trim(), value:inpt_addtxt_value.trim(), variableType:"STRING"};
+      let pushable = {type:"LET_STATEMENT", name:inpt_addtxt_name.trim(), value:inpt_addtxt_value.trim(), variableType:"STRING", id:generateNewID()};
       if (intcode.length === 0) {
         intcode.push(pushable);
       } else {
@@ -82,7 +87,7 @@ let intcode = [];
       app.display({U:"Your space", v:[]});
      }
     else if (event.u === "btn_addnumvar") {
-      let pushable = {type:"LET_STATEMENT",name:inpt_addnum_name.trim(),value:inpt_addnum_value, variableType:"NUMBER"};
+      let pushable = {type:"LET_STATEMENT",name:inpt_addnum_name.trim(),value:inpt_addnum_value, variableType:"NUMBER", id:generateNewID()};
       if (Number.isFinite(inpt_addnum_value)) {
         if (intcode.length === 0) {
           intcode.push(pushable);
@@ -107,7 +112,7 @@ let intcode = [];
       }
     }
 
-    // WORK TO DO: if variable exists, put '_ident' as a prefix; if variable doesn't exist, push as is
+    // WORK DONE: if variable exists, put '_ident' as a prefix; if variable doesn't exist, push as is
 
     else if (event.u === "btn_println") {
       for (const element of intcode) {
@@ -117,7 +122,7 @@ let intcode = [];
           inpt_print_value = inpt_print_value.trim();
         }
       }
-      intcode.push({type:"FUNCTION_CALL_STATEMENT",name:"print", args:[inpt_print_value.trim()]});
+      intcode.push({type:"FUNCTION_CALL_STATEMENT",name:"print", args:[inpt_print_value.trim()], id:generateNewID()});
       app.display({U:"Your space", v:[]});
     }
     else if (event.u === "btn_loadejsfile") {
@@ -135,15 +140,24 @@ let intcode = [];
         }
         app.display({U:"Your space", add:[newcode]});
       }
-    }
+    } else if (event.u === "btn_edit") {
+      // Display an edit interface, maybe a modal with a text input
+      // let currentCodeLine = intcode.find(item => item.id === event.lineid);
+      app.display({U:"Your space", add:[{
+        c: "win", closeable: 1, modal:1, id: "Edit a Variable", 
+      v: [{ v: currentCodeLine, id: "inpt_addtxt_name", cap:"Name", input: 1 },
+          { c: "btn", id: "btn_submit", cap:"Change" }]
+          /* your edit interface with currentCodeLine */ }]});
+      }
+    
     
       if(newcode!== ""){app.display({U:"Your space", v:[newcode]});}else{app.display({U:"Your space", v:[]});}
       for(const element of intcode) {
         if (element.type == "LET_STATEMENT" && element.variableType === "STRING") {
-          app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = \"" + element.value + "\";" }]});
+          app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = \"" + element.value + "\";" }, { c: "btn", id: "btn_edit", cap:"✏️"}]});
         } else if ( element.type == "LET_STATEMENT" && element.variableType === "NUMBER") {
-          app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = " + element.value + ";" }]});
-        } else if ( element.type == "FUNCTION_CALL_STATEMENT" && element.name === "print"){  app.display({U:"Your space",add: [{ c: "txt", v: "console.log(\"" + element.args + "\");" }]});
+          app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = " + element.value + ";" }, { c: "btn", id: "btn_edit",  cap:"✏️"}]});
+        } else if ( element.type == "FUNCTION_CALL_STATEMENT" && element.name === "print"){  app.display({U:"Your space",add: [{ c: "txt", v: "console.log(\"" + element.args + "\");" }, { c: "btn", id: "btn_edit", cap:"✏️"}]});
         
       }
       console.log("intcode: " + intcode);
