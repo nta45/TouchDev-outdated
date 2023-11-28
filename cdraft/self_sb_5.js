@@ -84,6 +84,18 @@ let intcode = [];
         }
         
       }
+      /* This is Something that I'm thinking to do (in order to close the window once the button is clicked (11/27/23 nta45))
+          let component = COMPONENTS.get("Add a Text Variable"); // Get the component from the map
+          
+            component.v = false; // Or however you store the value in your component
+
+            // Update the component in the map
+            COMPONENTS.set("Add a Text Variable", component);
+
+            // Reflect this change in the UI
+            app.display({queue:[{update:[component]}]});
+          // app.display({queue:[{update:[COMPONENTS.get("Add a Text Variable")]}]});
+      */
       app.display({U:"Your space", v:[]});
      }
     else if (event.u === "btn_addnumvar") {
