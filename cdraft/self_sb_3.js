@@ -131,7 +131,7 @@ let intcode = {var:[],cmd:[]};
     
       if(newcode!== ""){app.display({U:"Your space", v:[newcode]});}else{app.display({U:"Your space", v:[]});}
       for(const element of intcode.var) {
-        if (element.type === "text") {1
+        if (element.type === "text") {
           app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = \"" + element.value + "\";" }]});
         } else if ( element.type === "number") {
           app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = " + element.value + ";" }]});

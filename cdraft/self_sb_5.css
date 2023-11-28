@@ -1,0 +1,40 @@
+[level="0"]>.frame {
+    width:100%;
+    height:100%;
+    display:grid;
+    grid-template-areas: "lt rt" "lm rm" "lb rb";
+    grid-auto-rows: 1fr 1fr;
+    grid-template-columns: 2.5fr 1.5fr;
+}
+
+
+[id="Your space"] {color:rgb(63, 6, 6);background:linear-gradient(to bottom right,white 75%,rgb(240, 255, 255) 85%,rgb(219, 236, 250));
+    box-shadow:-1px -1px 1px lightgray;padding:5px;grid-area:lt / lm / lb}
+[id="Your space"] [c='btn'] {
+    min-width: 1.5em !important;
+    max-height: 2em !important;
+    text-align: left!important;
+    padding: 0.5em!important;
+    margin: 10em!important;
+    background-color: var(--colorFalse)!important;
+    vertical-align: middle!important;
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.3)!important;
+    border-radius: 4px!important;
+    flex-direction: column!important;
+    font-size: 10px!important;
+}
+[id="Your space"] [class="content frame"] {
+    display: table-cell!important;
+}
+
+[id="Things to Do"] {grid-area:rt;display:flex;flex-direction:row}
+[id="Things to Do"]>.title {flex: 0 1 auto;}
+[id="Things to Do"]>.frame {flex: 1 1 auto;height:100%;max-height:none;font-size:11pt}
+[id="Things to Do"]>.frame {height:100%;display:flex;flex-direction: column;}
+[id="Things to Do"] {flex: 1 1 auto;}
+[id="Things to Do"] {height:100% !important} */
+
+
+
+#Warning {text-align:right;color:#a00}
+#Warning * {display:inline}

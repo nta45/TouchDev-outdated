@@ -38,7 +38,7 @@ function generateNewID() {
 let intcode = [];
 
   app.start(event=>{app.display({
-      cap: "JavaScript TouchDev (in-progress)", require: { c: ["grid", "opt"] }, style: "self_sb_3.css",
+      cap: "JavaScript TouchDev (in-progress)", require: { c: ["grid", "opt"] }, style: "self_sb_5.css",
       value: [
         { id: "Your space"},
         { id: "Things to Do", v: [...COMPONENTS.keys()].map((x) => ({ id: x, c: "btn" }))},
@@ -152,25 +152,28 @@ let intcode = [];
         }
         app.display({U:"Your space", add:[newcode]});
       }
-    } else if (event.u === "btn_edit") {
-      // Display an edit interface, maybe a modal with a text input
-      // let currentCodeLine = intcode.find(item => item.id === event.lineid);
-      app.display({U:"Your space", add:[{
-        c: "win", closeable: 1, modal:1, id: "Edit a Variable", 
-      v: [{ v: currentCodeLine, id: "inpt_addtxt_name", cap:"Name", input: 1 },
-          { c: "btn", id: "btn_submit", cap:"Change" }]
-          /* your edit interface with currentCodeLine */ }]});
-      }
+    }
+    //  else if (event.u === "btn_edit") {
+    //   // Display an edit interface, maybe a modal with a text input
+    //   // let currentCodeLine = intcode.find(item => item.id === event.lineid);
+    //   app.display({U:"Your space", add:[{
+    //     c: "win", closeable: 1, modal:1, id: "Edit a Variable", 
+    //   v: [{ v: currentCodeLine, id: "inpt_addtxt_name", cap:"Name", input: 1 },
+    //       { c: "btn", id: "btn_submit", cap:"Change" }]
+    //       /* your edit interface with currentCodeLine */ }]});
+    //   }
     
     
       if(newcode!== ""){app.display({U:"Your space", v:[newcode]});}else{app.display({U:"Your space", v:[]});}
       for(const element of intcode) {
-        if (element.type == "LET_STATEMENT" && element.variableType === "STRING") {
-          app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = \"" + element.value + "\";" }, { c: "btn", id: "btn_edit", cap:"✏️"}]});
+        let editandline = [{c: "btn", id: "btn_edit", cap:"✏️"}, {c: "btn", id: "btn_trash", cap:"🗑️"}, { c: "txt", v: "let " + element.name + " = \"" + element.value + "\";"}];
+        let editandprint = [{c: "btn", id: "btn_edit", cap:"✏️"}, {c: "btn", id: "btn_trash", cap:"🗑️"}, { c: "txt", v: "console.log(\"" + element.args + "\");"}];
+        if (element.type == "LET_STATEMENT" && element.variableType === "STRING") {  
+          app.display({U:"Your space",add: [editandline]});
         } else if ( element.type == "LET_STATEMENT" && element.variableType === "NUMBER") {
-          app.display({U:"Your space",add: [{ c: "txt", v: "let " + element.name + " = " + element.value + ";" }, { c: "btn", id: "btn_edit",  cap:"✏️"}]});
-        } else if ( element.type == "FUNCTION_CALL_STATEMENT" && element.name === "print"){  app.display({U:"Your space",add: [{ c: "txt", v: "console.log(\"" + element.args + "\");" }, { c: "btn", id: "btn_edit", cap:"✏️"}]});
-        
+          app.display({U:"Your space",add: [editandline]});
+        } else if ( element.type == "FUNCTION_CALL_STATEMENT" && element.name === "print"){
+          app.display({U:"Your space",add: [editandprint]});
       }
       console.log("intcode: " + intcode);
     }
