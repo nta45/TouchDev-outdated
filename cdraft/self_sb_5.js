@@ -3,7 +3,7 @@
 logToConsole();
 
 let COMPONENTS = new Map([
-  ["Add a Text Variable", {c: "win", closeable: 1, modal:1, id: "Add a Variable", 
+  ["Add a Text Variable", {c: "win", modal:1, closeable: 1, id: "Add a Variable", 
                     v: [{ v: "", id: "inpt_addtxt_name", cap:"Name", input: 1 },{ v: "", id: "inpt_addtxt_value", cap:"Value", input: 1 },
                         { c: "btn", id: "btn_addtextvar", cap:"Add" }]}],
   ["Add a Number Variable", {c: "win", closeable: 1, modal:1,id: "Add a num Variable", 
@@ -26,12 +26,9 @@ let COMPONENTS = new Map([
 
 let latestcode = '{"v":[\n  \n]}\n';
 let jscode, newcode = "";
-let inpt_addtxt_name, inpt_addtxt_value, inpt_print_value, inpt_addnum_name, inpt_addnum_value, filecontent;
-let currentID = 1;
+let inpt_addtxt_name, inpt_addtxt_value, inpt_print_value, inpt_addnum_name, inpt_addnum_value;
+let filecontent, inpt_edit_name, inpt_edit_value;
 
-function generateNewID() {
-  return currentID++;
-}
 // let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
 // let code = {vars:[], commands:[]};
 // let code = {screens:[],functions:{home:{vars:[], commands:[]}}};
@@ -55,7 +52,9 @@ let intcode = [];
       app.display({queue:[{add:[COMPONENTS.get(event.u)]}]});
     }
     else if (event.u === "inpt_addtxt_name") { inpt_addtxt_name = event.v;} 
-    else if (event.u === "prot1") { window.location.href = "index2.html";} 
+    else if (event.u === "prot1") { window.location.href = "index2.html";}
+    else if (event.u === "inpt_edit_name") { inpt_edit_name = event.v;} 
+    else if (event.u === "inpt_edit_value") { inpt_edit_value = event.v;} 
     else if (event.u === "inpt_addtxt_value") { inpt_addtxt_value = event.v;}
     else if (event.u === "inpt_print_value") { inpt_print_value = event.v;}
     else if (event.u === "inpt_addnum_name") { inpt_addnum_name = event.v;}
@@ -66,7 +65,7 @@ let intcode = [];
     }
     
     else if (event.u === "btn_addtextvar") {
-      let pushable = {type:"LET_STATEMENT", name:inpt_addtxt_name.trim(), value:inpt_addtxt_value.trim(), variableType:"STRING", id:generateNewID()};
+      let pushable = {type:"LET_STATEMENT", name:inpt_addtxt_name.trim(), value:inpt_addtxt_value.trim(), variableType:"STRING"};
       if (intcode.length === 0) {
         intcode.push(pushable);
       } else {
@@ -99,7 +98,7 @@ let intcode = [];
       app.display({U:"Your space", v:[]});
      }
     else if (event.u === "btn_addnumvar") {
-      let pushable = {type:"LET_STATEMENT",name:inpt_addnum_name.trim(),value:inpt_addnum_value, variableType:"NUMBER", id:generateNewID()};
+      let pushable = {type:"LET_STATEMENT",name:inpt_addnum_name.trim(),value:inpt_addnum_value, variableType:"NUMBER"};
       if (Number.isFinite(inpt_addnum_value)) {
         if (intcode.length === 0) {
           intcode.push(pushable);
@@ -134,7 +133,7 @@ let intcode = [];
           inpt_print_value = inpt_print_value.trim();
         }
       }
-      intcode.push({type:"FUNCTION_CALL_STATEMENT",name:"print", args:[inpt_print_value.trim()], id:generateNewID()});
+      intcode.push({type:"FUNCTION_CALL_STATEMENT",name:"print", args:[inpt_print_value.trim()]});
       app.display({U:"Your space", v:[]});
     }
     else if (event.u === "btn_loadejsfile") {
@@ -153,38 +152,69 @@ let intcode = [];
         app.display({U:"Your space", add:[newcode]});
       }
     }
-    //  else if (event.u === "btn_edit") {
+     else if (event.u.startsWith("btn_edit")) {
     //   // Display an edit interface, maybe a modal with a text input
-    //   // let currentCodeLine = intcode.find(item => item.id === event.lineid);
-    //   app.display({U:"Your space", add:[{
-    //     c: "win", closeable: 1, modal:1, id: "Edit a Variable", 
-    //   v: [{ v: currentCodeLine, id: "inpt_addtxt_name", cap:"Name", input: 1 },
-    //       { c: "btn", id: "btn_submit", cap:"Change" }]
-    //       /* your edit interface with currentCodeLine */ }]});
-    //   }
+      let currentCodeLine = parseInt(event.u.slice(-1));
+      if(intcode[currentCodeLine].type == "LET_STATEMENT"){ 
+      app.display({queue:[{add:[{ c: "win", closeable: 1, modal:1, id: "Edit a Variable",
+        v: [{ v: intcode[currentCodeLine].name, id: "inpt_edit_name", cap:"Name", input: 1 },
+        { v: intcode[currentCodeLine].value, id: "inpt_edit_value", cap:"Value", input: 1 },
+            { c: "btn", id: "make_edit" + currentCodeLine, cap:"Change" }]
+          /* your edit interface with currentCodeLine */ }]}]});}
+          else if (intcode[currentCodeLine].type == "FUNCTION_CALL_STATEMENT"){
+            app.display({queue:[{add:[{ c: "win", closeable: 1, modal:1, id: "Edit a Print",
+        v: [{ v: intcode[currentCodeLine].args, id: "inpt_edit_name", cap:"Name", input: 1 },
+            { c: "btn", id: "make_edit" + currentCodeLine, cap:"Change" }]
+         }]}]});}
+      }
+      
+     else if (event.u.startsWith("make_edit")) {
+        let linenum = parseInt(event.u.slice(-1));
+
+        console.log("Before Update: ", intcode[linenum]);
+
+        if (typeof inpt_edit_name != 'undefined' && inpt_edit_name != intcode[linenum].name) {
+          intcode[linenum].name = inpt_edit_name;
+        } else if (typeof inpt_edit_value != 'undefined' &&inpt_edit_value != intcode[linenum].value){
+          intcode[linenum].value = inpt_edit_value;
+        }
+        console.log("After Update: ", intcode[linenum]);
+        app.display({U:"Your space", v:[]});
+
+    }
+    else if (event.u.startsWith("btn_trash")) {
+      let linenum = parseInt(event.u.slice(-1));
+      intcode.splice(linenum,1);
+
+      app.display({U:"Your space", v:[]});
+    }
     
     
+    /***** PUT SEPARATELY AS A FUNCTION CALLED CLEAR SCREEN AND ADD AGAIN *******/
       if(newcode!== ""){app.display({U:"Your space", v:[newcode]});}else{app.display({U:"Your space", v:[]});}
-      for(const element of intcode) {
-        let editandline = [{c: "btn", id: "btn_edit", cap:"✏️"}, {c: "btn", id: "btn_trash", cap:"🗑️"}, { c: "txt", v: "let " + element.name + " = \"" + element.value + "\";"}];
-        let editandprint = [{c: "btn", id: "btn_edit", cap:"✏️"}, {c: "btn", id: "btn_trash", cap:"🗑️"}, { c: "txt", v: "console.log(\"" + element.args + "\");"}];
+      intcode.forEach((element, line) => {
+        let editandline = [{c: "btn", id: "btn_edit" + line, cap:"✏️"}, {c: "btn", id: "btn_trash" + line, cap:"🗑️"}, { c: "txt", v: "let " + element.name + " = \"" + element.value + "\";"}];
+        
         if (element.type == "LET_STATEMENT" && element.variableType === "STRING") {  
           app.display({U:"Your space",add: [editandline]});
         } else if ( element.type == "LET_STATEMENT" && element.variableType === "NUMBER") {
           app.display({U:"Your space",add: [editandline]});
         } else if ( element.type == "FUNCTION_CALL_STATEMENT" && element.name === "print"){
+          let editandprint = [{c: "btn", id: "btn_edit" + line, cap:"✏️"}, {c: "btn", id: "btn_trash" + line, cap:"🗑️"}, { c: "txt", v: "console.log(\"" + element.args + "\");"}];
           app.display({U:"Your space",add: [editandprint]});
       }
       console.log("intcode: " + intcode);
-    }
-  });
-
-  // SELF-SB-4 object shows 3 variables added as
-  // intcode = {
-  //   {var: [type:"", name:"", value:""]},
-  //   {var: [type:"", name:"", value:""]},
-  //   {cmd: [type:"", value:""]}
-  //   {var: [type:"", name:"", value:""]},
-  //}
-  
+      }
+    /*******************   *****/
+    
+  )});
+/** OUTPUT FORMAT --- 
+  SELF-SB-5 object shows 4 variables added as
+  intcode = [
+    {type:'LET_STATEMENT', name:'', value:'', variableType:'', id:''},
+    {type:'LET_STATEMENT', name:'', value:'', variableType:'', id:''},
+    {type:'FUNCTION_CALL_STATEMENT', name:'', args:[], id:''},
+    {type:'LET_STATEMENT', name:'', value:'', variableType:'', id:''}
+  ]
+**/  
   
