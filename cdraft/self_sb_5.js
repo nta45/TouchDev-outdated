@@ -9,7 +9,7 @@ let COMPONENTS = new Map([
   ["Add a Number Variable", {c: "win", closeable: 1, modal:1,id: "Add a num Variable", 
                     v: [{ v: "", id: "inpt_addnum_name", cap:"Name", input: 1 },{ v: "", id: "inpt_addnum_value", cap:"Value", input: 1 },
                         { c: "btn", id: "btn_addnumvar", cap:"Add" }]}],
-  ["Add Text to Display", {c: "win", closeable: 1,modal:1, id: "Add text to display...", 
+  ["Add Text to Display", {c: "win", closeable: 1,modal:1, id: "Add text to display", 
                     v: [{ v: "", id: "inpt_print_value", cap:"Text to Display ↓", input: 1 }, 
                     "If you want to print a variable you've already set, type the name of the variable",
                         { c: "btn", id:"btn_println", cap: "Print" }]}],
@@ -78,25 +78,12 @@ let intcode = [];
             break;
           } 
         }
-        if(!nameFound){
-            intcode.push(pushable);
-        }
-        
+        if(!nameFound){intcode.push(pushable);}  
       }
-      /* This is Something that I'm thinking to do (in order to close the window once the button is clicked (11/27/23 nta45))
-          let component = COMPONENTS.get("Add a Text Variable"); // Get the component from the map
-          
-            component.v = false; // Or however you store the value in your component
 
-            // Update the component in the map
-            COMPONENTS.set("Add a Text Variable", component);
-
-            // Reflect this change in the UI
-            app.display({queue:[{update:[component]}]});
-          // app.display({queue:[{update:[COMPONENTS.get("Add a Text Variable")]}]});
-      */
+      app.display({queue:[{update:["Add a Variable"], v:null}]});
       app.display({U:"Your space", v:[]});
-     }
+    }
     else if (event.u === "btn_addnumvar") {
       let pushable = {type:"LET_STATEMENT",name:inpt_addnum_name.trim(),value:inpt_addnum_value, variableType:"NUMBER"};
       if (Number.isFinite(inpt_addnum_value)) {
@@ -116,7 +103,8 @@ let intcode = [];
             intcode.push(pushable);
         }}
   
-      app.display({U:"Your space", v:[]});
+        app.display({queue:[{update:["Add a num Variable"], v:null}]});
+        app.display({U:"Your space", v:[]});
       } 
       else{
         app.display({add:[{c: "win", closeable: 1, modal:1, v: ["Please enter a number in the value field."]}]});
@@ -134,6 +122,7 @@ let intcode = [];
         }
       }
       intcode.push({type:"FUNCTION_CALL_STATEMENT",name:"print", args:[inpt_print_value.trim()]});
+      app.display({queue:[{update:["Add text to display"], v:null}]});
       app.display({U:"Your space", v:[]});
     }
     else if (event.u === "btn_loadejsfile") {
@@ -149,6 +138,7 @@ let intcode = [];
             newcode += ("console.log(\"" + element.args + "\");" + "\n");
           }
         }
+        app.display({queue:[{update:["Load the JSON File?"], v:null}]});
         app.display({U:"Your space", add:[newcode]});
       }
     }
@@ -166,6 +156,7 @@ let intcode = [];
         v: [{ v: intcode[currentCodeLine].args, id: "inpt_edit_name", cap:"Name", input: 1 },
             { c: "btn", id: "make_edit" + currentCodeLine, cap:"Change" }]
          }]}]});}
+         
       }
       
      else if (event.u.startsWith("make_edit")) {
@@ -179,6 +170,8 @@ let intcode = [];
           intcode[linenum].value = inpt_edit_value;
         }
         console.log("After Update: ", intcode[linenum]);
+        app.display({queue:[{update:["Edit a Variable"], v:null}]});
+        app.display({queue:[{update:["Edit a Print"], v:null}]});
         app.display({U:"Your space", v:[]});
 
     }
@@ -186,6 +179,8 @@ let intcode = [];
       let linenum = parseInt(event.u.slice(-1));
       intcode.splice(linenum,1);
 
+      
+      
       app.display({U:"Your space", v:[]});
     }
     
